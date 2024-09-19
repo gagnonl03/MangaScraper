@@ -10,6 +10,18 @@ class Program
     static async Task Main(string[] args)
     {
 
+
+        Dictionary<string, string> test = new Dictionary<string, string>();
+        test.Add("hello", "hello there");
+        Console.WriteLine(test["hello"]);
+        Dictionary<string, string> test2 = new Dictionary<string, string>();
+        foreach (KeyValuePair<string, string> keyValuePair in test)
+        {
+            test2.Add(keyValuePair.Key, keyValuePair.Value);
+        }
+        test.Clear();
+        Console.WriteLine(test2["hello"]);
+        /*
         var doc = new HtmlWeb().Load("https://bato.to/title/82074-horimiya-official/2307554-vol_16-ch_122.3?load=2");
         var node = doc.DocumentNode.SelectSingleNode("//h6[@class='text-lg space-x-2']");
         Console.WriteLine(node.FirstChild.FirstChild.InnerText);
@@ -28,66 +40,6 @@ class Program
         var elapsedMs = watch.ElapsedMilliseconds;
         Console.WriteLine($"Elapsed time: {elapsedMs} ms");
 
-        /*
-
-
-        //Console.WriteLine(doc.Text);
-        var stuff = doc.DocumentNode.SelectNodes("//div[@class='space-x-1']");
-        List<string> chapterUrls = new List<string>();
-        foreach (HtmlNode node in stuff.Nodes())
-        {
-            if (node.Attributes["href"] != null)
-            {
-                Console.WriteLine(node.InnerText);
-                //Console.WriteLine(node.Attributes["href"].Value);
-                chapterUrls.Add("https://bato.to" + node.Attributes["href"].Value + "?load=2");
-            }
-        }
-
-        var runningMethods = new List<Task<string[]>>();
-        foreach (string url2 in chapterUrls)
-        {
-            runningMethods.Add(GetImagesFromChapter(url2));
-        }
-
-        var results = await Task.WhenAll(runningMethods);
-        Console.WriteLine("Printing results");
-        foreach (string[] chap in results)
-        {
-            foreach (string str in chap)
-            {
-                Console.WriteLine(str);
-            }
-        }
-
-        watch.Stop();
-        Console.WriteLine($"Elapsed time: {watch.Elapsed}");
-        /*
-        var manga = new ScrapedManga(chapterUrls, "duh", url);
-        manga.DownloadManga();
         */
-    }
-
-    public static async Task<string[]> GetImagesFromChapter(string url)
-    {
-        var web = new HtmlWeb();
-        var doc = await web.LoadFromWebAsync(url);
-        var stuff = doc.DocumentNode.SelectSingleNode("//astro-island[@component-url='/_astro/ImageList.1931435f.js']");
-        string dump = stuff.Attributes["props"].Value;
-
-        
-
-        var output = dump.Split("https://"); 
-        output = output.Skip(1).ToArray();
-        var finalOutput = new List<string>();
-        //Console.WriteLine(url);
-        finalOutput.Add(url);
-        foreach (string temp in output)
-        {
-            var temp2 = temp.Substring(0, temp.IndexOf('\\'));
-            //Console.WriteLine(temp2);
-            finalOutput.Add(temp2);
-        }
-        return finalOutput.ToArray();
     }
 }

@@ -9,6 +9,8 @@ public class BatoChapter : Chapter
     public override async void InitializeFull(string mangaPath, string chapterUrl)
     {
         InitializePartial(mangaPath, chapterUrl);
+        InitializeFinish();
+
     }
 
     public override async void InitializePartial(string mangaPath, string chapterUrl)
@@ -20,6 +22,21 @@ public class BatoChapter : Chapter
         numImages = doc.DocumentNode.SelectNodes("//div[@name='image-item']").Count;
         MakeBaseDirectory(mangaPath);
 
+    }
+
+    public override async void InitializeFinish()
+    {
+        
+    }
+
+    protected override async Task<HtmlDocument> SetupBasicInfo(string mangaPath, string chapterUrl)
+    {
+        this.chapterUrl = chapterUrl;
+        var web = new HtmlWeb();
+        var doc = await web.LoadFromWebAsync(chapterUrl);
+        title = doc.DocumentNode.SelectSingleNode("//h6[@class='text-lg space-x-2']").FirstChild.FirstChild.InnerText;
+        numImages = doc.DocumentNode.SelectNodes("//div[@name='image-item']").Count;
+        return doc;
     }
 
     protected override int GetNumImagesFromDoc(HtmlDocument doc)

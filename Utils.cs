@@ -2,25 +2,22 @@
 
 public class Utils
 {
-    public async static Task<bool> DownloadSingleImage(string imageUrl, string filePath, List<string>? deadChapters = null)
+    public async static Task DownloadSingleImage(string imageUrl, string filePath, Dictionary<string, string>? deadImages = null)
     {
         try
         {
             byte[] fileBytes = await Program.client.GetByteArrayAsync(imageUrl);
             File.WriteAllBytes(filePath, fileBytes);
             Console.WriteLine("FINISHED IMAGE: " + filePath);
-            return true;
         }
         catch (Exception ex)
         {
             Console.WriteLine("FAILED: " + filePath);
-            if (deadChapters != null)
+            if (deadImages != null)
             {
-                deadChapters.Add(imageUrl);
+                deadImages.Add(imageUrl, filePath);
             }
         }
-
-        return false;
     }
 
     public static void BuildDirectoryStructrue(Dictionary<string, string> chapterDict)
