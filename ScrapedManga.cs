@@ -10,7 +10,7 @@ public abstract class ScrapedManga
     protected Dictionary<string, string> chapterDict;
     protected string mangaPath;
     public List<List<string>> deadImages;
-    public List<Chapter> chapters;
+    public List<ScrapedChapter> chapters;
     public abstract void Initialize(string rootUrl, string rootPath);
     public abstract void InitializeFromFile(string filePath);
     public abstract Task DownloadManga();

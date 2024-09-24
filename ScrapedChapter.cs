@@ -2,7 +2,7 @@
 
 namespace MangaScraper;
 
-public abstract class Chapter
+public abstract class ScrapedChapter
 {
     protected string title;
     protected string chapterPath;

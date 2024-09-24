@@ -3,7 +3,7 @@ using HtmlAgilityPack;
 
 namespace MangaScraper;
 
-public class BatoChapter : Chapter
+public class BatoChapter : ScrapedChapter
 {
 
     public override async void InitializeFull(string mangaPath, string chapterUrl)
