@@ -32,14 +32,21 @@ public class BatoManga : ScrapedManga
     public override async Task DownloadManga()
     {
         List<Task> tasks = new List<Task>();
+        /*
         foreach (var tuple in chapterDict)
         {
             string chapterPath = Path.Combine(mangaPath, Utils.FormatStringToPathSafe(tuple.Key));
             tasks.Add(DownloadChapter(chapterPath, tuple.Value));
         }
         await Task.WhenAll(tasks);
+        */
+        foreach (ScrapedChapter chapter in chapters)
+        {
+            tasks.Add(chapter.Download());
+        }
         
-        
+        await Task.WhenAll(tasks);
+
     }
 
     protected override void BuildChapterList(HtmlDocument document)
@@ -61,10 +68,6 @@ public class BatoManga : ScrapedManga
     {
         mangaPath = Path.Combine(rootPath, Utils.FormatStringToPathSafe(title));
         Directory.CreateDirectory(mangaPath);
-        foreach (var chapterName in chapterDict.Keys)
-        {
-            Directory.CreateDirectory(Path.Combine(mangaPath, Utils.FormatStringToPathSafe(chapterName)));
-        }
     }
 
     protected override async Task DownloadChapter(string chapterPath, string url)

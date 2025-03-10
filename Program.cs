@@ -9,18 +9,7 @@ class Program
     public static readonly string PROJECT_PATH = Path.Combine(Environment.CurrentDirectory, "..", "..", "..");
     static async Task Main(string[] args)
     {
-
-
-        Dictionary<string, string> test = new Dictionary<string, string>();
-        test.Add("hello", "hello there");
-        Console.WriteLine(test["hello"]);
-        Dictionary<string, string> test2 = new Dictionary<string, string>();
-        foreach (KeyValuePair<string, string> keyValuePair in test)
-        {
-            test2.Add(keyValuePair.Key, keyValuePair.Value);
-        }
-        test.Clear();
-        Console.WriteLine(test2["hello"]);
+        
         /*
         var doc = new HtmlWeb().Load("https://bato.to/title/82074-horimiya-official/2307554-vol_16-ch_122.3?load=2");
         var node = doc.DocumentNode.SelectSingleNode("//h6[@class='text-lg space-x-2']");

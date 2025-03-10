@@ -23,7 +23,7 @@ public abstract class ScrapedChapter
         List<Task> tasks = new List<Task>();
         for (int i = 0; i < imageUrls.Count; i++)
         {
-            tasks.Add(Utils.DownloadSingleImage(imageUrls[i], Path.Combine(chapterPath, chapterPath + $"{i + 1}.png")));
+            tasks.Add(Utils.DownloadSingleImage(imageUrls[i], Path.Combine(chapterPath, chapterPath + $"{i + 1}.png"), deadChapterDict));
         }
         
         await Task.WhenAll(tasks);
@@ -40,13 +40,14 @@ public abstract class ScrapedChapter
         deadChapterDict.Clear();
 
         List<Task> tasks = new List<Task>();
-        
-        while (deadChapterDictTemp.Count > 0)
+
+        foreach (KeyValuePair<string, string> kvp in deadChapterDictTemp)
         {
-            var deadImage = deadChapterDictTemp.First();
-            tasks.Add(Utils.DownloadSingleImage(deadImage.Key, deadImage.Value));
-            deadChapterDictTemp.Remove(deadImage.Key);
+            tasks.Add(Utils.DownloadSingleImage(kvp.Key, kvp.Value, deadChapterDict));
         }
+        deadChapterDictTemp.Clear();
+        
+        await Task.WhenAll(tasks);
     }
 
     public async Task Download()

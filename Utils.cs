@@ -2,7 +2,7 @@
 
 public class Utils
 {
-    public async static Task DownloadSingleImage(string imageUrl, string filePath, Dictionary<string, string>? deadImages = null)
+    public static async Task DownloadSingleImage(string imageUrl, string filePath, Dictionary<string, string> deadImages)
     {
         try
         {
@@ -13,16 +13,8 @@ public class Utils
         catch (Exception ex)
         {
             Console.WriteLine("FAILED: " + filePath);
-            if (deadImages != null)
-            {
-                deadImages.Add(imageUrl, filePath);
-            }
+            deadImages.Add(imageUrl, filePath);
         }
-    }
-
-    public static void BuildDirectoryStructrue(Dictionary<string, string> chapterDict)
-    {
-        
     }
 
     public static string FormatStringToPathSafe(string str)
