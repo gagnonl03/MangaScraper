@@ -32,20 +32,22 @@ public class BatoManga : ScrapedManga
     public override async Task DownloadManga()
     {
         List<Task> tasks = new List<Task>();
-        /*
+        
         foreach (var tuple in chapterDict)
         {
             string chapterPath = Path.Combine(mangaPath, Utils.FormatStringToPathSafe(tuple.Key));
             tasks.Add(DownloadChapter(chapterPath, tuple.Value));
         }
         await Task.WhenAll(tasks);
-        */
+        
+        /*
         foreach (ScrapedChapter chapter in chapters)
         {
             tasks.Add(chapter.Download());
         }
         
         await Task.WhenAll(tasks);
+        */
 
     }
 
